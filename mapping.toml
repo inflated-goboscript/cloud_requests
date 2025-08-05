@@ -1,12 +1,4 @@
-costumes "blank.svg";
-
-%include inflator/assert
-%include inflator/char
-%include inflator/string
-%include inflator/cloud_requests
-
-list testers = ["None",
-    "None",
+letters = ["None", "None", # this is a mapping from line # to char which scratchattach uses. This isn't used in the code, but it is a useful reference.
     "None",
     "None",
     "None",
@@ -83,7 +75,7 @@ list testers = ["None",
     ".",
     ",",
     "!",
-    "\"",
+    '"',
     "§",
     "$",
     "%",
@@ -105,15 +97,6 @@ list testers = ["None",
     "|",
     "^",
     "'"
-];
+]
 
-onflag {main;}
-proc main {
-    local i = 1;
-
-    repeat length testers {
-        local c = testers[i];
-        log c & "=" & _sa_encode(c);
-        i++;
-    }
-}
+# */.,!"§$%_-(´)`?n@#~;:+&|^'
