@@ -58,6 +58,7 @@ proc sa_check {
 
 nowarp proc send_request content {
     delete sa_response;
+    delete sa_to_send;
     sa_request = $content;
 
     local encoded = _sa_encode($content);
@@ -74,6 +75,21 @@ nowarp proc send_request content {
     if length encoded < 245 {
         TO_HOST = encoded & sa_request_id;
     } else {
+        # prepare send of data
+        local i = 1;
+        local partial_request = "";
+        repeat length encoded {
+            partial_request &= encoded[i];
+
+            if i % 245 == 0 {
+                add partial_request to sa_to_send;
+                partial_request = "";
+            }
+
+            i++;
+        }
+        add partial_request to sa_to_send;
+
         error "Not implemented 💀";
         breakpoint;
     }

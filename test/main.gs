@@ -116,3 +116,7 @@ nowarp proc main {
 onkey "space" {
     send_request "ping&" & TIME();
 }
+
+onkey "1" {
+    send_request "return_self&" & repstr("abc", 200);
+}
