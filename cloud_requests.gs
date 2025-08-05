@@ -64,7 +64,6 @@ nowarp proc send_request content {
     local encoded = _sa_encode($content);
 
     # nowarp proc _request data $data, data = encoded:
-    local start_time = SECONDS_SINCE_2000();
 
     local raw_output = "";
     sa_request_status = "LOADING";
@@ -73,9 +72,11 @@ nowarp proc send_request content {
     sa_request_id = "." & random(10001, 99999) & 0;
 
     if length encoded < 245 {
+        # for short strings, only 1 request is needed.
         TO_HOST = encoded & sa_request_id;
     } else {
         # prepare send of data
+        # split into strings of length 245 and output into sa_to_send list
         local i = 1;
         local partial_request = "";
         repeat length encoded {
@@ -90,9 +91,19 @@ nowarp proc send_request content {
         }
         add partial_request to sa_to_send;
 
-        error "Not implemented 💀";
-        breakpoint;
+        # Actually send the data
+        local i = 1;
+        repeat length sa_to_send - 1 {
+            TO_HOST = "-" & sa_to_send[i] & sa_request_id;
+            i++;
+            wait 0.1;
+        }
+        TO_HOST = sa_to_send[i] & sa_request_id;
     }
+
+    # Receive a response
+    local start_time = SECONDS_SINCE_2000();
+
 }
 
 func _sa_encode(content) {

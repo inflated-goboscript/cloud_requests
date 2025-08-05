@@ -118,5 +118,5 @@ onkey "space" {
 }
 
 onkey "1" {
-    send_request "return_self&" & repstr("abc", 200);
+    send_request "return_self&" & repstr(ASCII_LETTERS, 5);
 }
