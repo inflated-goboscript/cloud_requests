@@ -6,7 +6,7 @@ This is a cloud request library which is built for [goboscript](https://github.c
 It is designed to be used with [inflator](https://github.com/faretek1/inflator) and [scratchattach](https://github.com/timMcCool/scratchattach/)
 
 > [!WARNING]
-> This is in very early development. I do not reccomend using this.
+> This is in very early development. I do not recommend using this.
 
 ## Credits
 
