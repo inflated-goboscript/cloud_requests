@@ -3,6 +3,7 @@ costumes "blank.svg";
 %include inflator/assert
 %include inflator/char
 %include inflator/string
+%include inflator/time
 %include inflator/cloud_requests
 
 list testers = ["None",
@@ -108,12 +109,6 @@ list testers = ["None",
 ];
 
 onflag {main;}
-proc main {
-    local i = 1;
-
-    repeat length testers {
-        local c = testers[i];
-        log c & "=" & _sa_encode(c);
-        i++;
-    }
+nowarp proc main {
+    send_request "ping";
 }

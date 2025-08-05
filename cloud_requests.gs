@@ -3,10 +3,12 @@
 list sa_old_cloud_values;
 list sa_parsed_responses;
 list sa_response;
+list sa_to_send;
 
 var sa_request_status = "";
 var sa_request_id = "";
 var sa_request = "";
+var sa_timeout_after = 10;
 
 onflag {
     SA_CLOUD_INIT;
@@ -54,11 +56,27 @@ proc sa_check {
 
 }
 
-proc send_request content {
-    delete response;
+nowarp proc send_request content {
+    delete sa_response;
     sa_request = $content;
 
-    local encoded = _sa_encode(sa_request);
+    local encoded = _sa_encode($content);
+
+    # nowarp proc _request data $data, data = encoded:
+    local start_time = SECONDS_SINCE_2000();
+
+    local raw_output = "";
+    sa_request_status = "LOADING";
+
+    # request id 100000 is used by the backend for sending data to the frontend without a priorly received request
+    sa_request_id = "." & random(10001, 99999) & 0;
+
+    if length encoded < 245 {
+        TO_HOST = encoded & sa_request_id;
+    } else {
+        error "Not implemented 💀";
+        breakpoint;
+    }
 }
 
 func _sa_encode(content) {

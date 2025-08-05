@@ -6,3 +6,4 @@ username = "FAReTek1"
 [dependencies]
 char = "https://github.com/FAReTek1/char"
 string = "https://github.com/FAReTek1/string"
+time = "https://github.com/FAReTek1/time"
