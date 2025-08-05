@@ -1,3 +1,5 @@
+# This is certainly slower than the original sb3 implementation, but it should be more readable and uses libraries.
+
 list sa_old_cloud_values;
 list sa_parsed_responses;
 list sa_response;
@@ -70,6 +72,7 @@ func _sa_encode(content) {
     return ret;
 }
 
+# The reason why this is so weirdly coded is because the scratchattach mapping was badly picked.
 func _sa_encode_chr(c) {
     local c_idx = findchar(ASCII_LOWERCASE, $c);
     if c_idx == 0 {
