@@ -112,3 +112,7 @@ onflag {main;}
 nowarp proc main {
     send_request "ping";
 }
+
+onkey "space" {
+    send_request "ping&" & TIME();
+}
