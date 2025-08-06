@@ -1,7 +1,9 @@
-
 nowarp proc send_request content {
-    delete sa_response;
+    delete sa_parsed_responses;
+    add "" to sa_parsed_responses;
+
     delete sa_to_send;
+
     sa_request = $content;
 
     local encoded = _sa_encode($content);
@@ -9,7 +11,7 @@ nowarp proc send_request content {
     # nowarp proc _request data $data, data = encoded:
 
     local raw_output = "";
-    sa_request_status = "LOADING";
+    sa_request_status = SAStatuses.loading;
 
     # request id 100000 is used by the backend for sending data to the frontend without a priorly received request
     sa_request_id = "." & random(10001, 99999) & 0;
@@ -47,4 +49,28 @@ nowarp proc send_request content {
     # Receive a response
     local start_time = SECONDS_SINCE_2000();
 
+    until sa_request_status == SAStatuses.done or SECONDS_SINCE_2000() - start_time > sa_timeout_after {
+        sa_check;
+    }
+    if SECONDS_SINCE_2000() - start_time > sa_timeout_after {
+        sa_request_status = SAStatuses.timeout;
+    } else {
+        broadcast "sa_on_server_response";
+    }
+    _sa_decode _sa_read_responses();
+}
+
+func _sa_read_responses() {
+    local i = 1;
+    local ret = "";
+    repeat length sa_parsed_responses {
+        local j = 1;
+        if "." in sa_parsed_responses[i] {
+            until sa_parsed_responses[i][j] == "." {
+                ret &= sa_parsed_responses[i][j];
+                j++;
+            }
+        }
+    }
+    return ret;
 }

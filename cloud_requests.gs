@@ -2,6 +2,7 @@
 
 list sa_old_cloud_values;
 list sa_parsed_responses;
+list sa_on_send_parsed_responses;
 list sa_response;
 list sa_to_send;
 
@@ -9,9 +10,19 @@ var sa_request_status = "";
 var sa_request_id = "";
 var sa_request = "";
 var sa_timeout_after = 10;
+var _sa_receiving_send_message = false;
 
 onflag {
     SA_CLOUD_INIT;
+}
+
+enum SAStatuses {
+    loading = "LOADING",
+    done = "DONE",
+    timeout = "TIMEOUT",
+    receiving = "RECEIVING",
+    receiving_message = "RECEIVING MESSAGE",
+    sent_from_server = "SENT FROM SERVER"
 }
 
 proc SA_CLOUD_INIT {
