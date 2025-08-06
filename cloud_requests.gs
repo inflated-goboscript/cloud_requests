@@ -1,5 +1,6 @@
 # This is certainly slower than the original sb3 implementation, but it should be more readable and uses libraries.
 
+# we need to add '=' to the start of each old cloud val to force comparison by string rather than by float, which has inaccuracies in the decimal portion
 list sa_old_cloud_values;
 list sa_parsed_responses;
 list sa_on_send_parsed_responses;
@@ -50,15 +51,15 @@ nowarp proc sa_message_receiver {
 
 proc sa_init {
     delete sa_old_cloud_values;
-    add FROM_HOST_1 to sa_old_cloud_values;
-    add FROM_HOST_2 to sa_old_cloud_values;
-    add FROM_HOST_3 to sa_old_cloud_values;
-    add FROM_HOST_4 to sa_old_cloud_values;
-    add FROM_HOST_5 to sa_old_cloud_values;
-    add FROM_HOST_6 to sa_old_cloud_values;
-    add FROM_HOST_7 to sa_old_cloud_values;
-    add FROM_HOST_8 to sa_old_cloud_values;
-    add FROM_HOST_9 to sa_old_cloud_values;
+    add "=" & FROM_HOST_1 to sa_old_cloud_values;
+    add "=" & FROM_HOST_2 to sa_old_cloud_values;
+    add "=" & FROM_HOST_3 to sa_old_cloud_values;
+    add "=" & FROM_HOST_4 to sa_old_cloud_values;
+    add "=" & FROM_HOST_5 to sa_old_cloud_values;
+    add "=" & FROM_HOST_6 to sa_old_cloud_values;
+    add "=" & FROM_HOST_7 to sa_old_cloud_values;
+    add "=" & FROM_HOST_8 to sa_old_cloud_values;
+    add "=" & FROM_HOST_9 to sa_old_cloud_values;
     
     delete sa_parsed_responses;
 }

@@ -10,8 +10,8 @@ proc sa_check {
 }
 
 proc _sa_check_cloud_var val {
-    if $val not in sa_old_cloud_values {
-        add $val to sa_old_cloud_values;
+    if "=" & $val not in sa_old_cloud_values {
+        add "=" & $val to sa_old_cloud_values;
         if length sa_old_cloud_values > 20 {
             delete sa_old_cloud_values[1];
         }
