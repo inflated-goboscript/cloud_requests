@@ -7,7 +7,7 @@ proc _sa_decode ret {
     local i = 1;
 
     repeat length $ret / 2 {
-        part = $ret[i] & $ret[i + 1];
+        local part = $ret[i] & $ret[i + 1];
         if part == 88 {
             add content to sa_response;
             content = "";
@@ -26,7 +26,9 @@ proc _sa_decode ret {
 proc _sa_decode_resp resp {
     # = resp[-1:-4]
     # = either 2222 or 3222
-    local validation = $resp[length $resp] & $resp[length $resp-1] & $resp[length $resp-2] & $resp[length $resp-3];
+    local validation = $resp[length $resp-3] & $resp[length $resp-2] & $resp[length $resp-1] & $resp[length $resp];
+    # if the validation ends in a 1, then you are dealing with a large payload. It will use the first 3 digits of the validation to send the
+    # number of remaining requests.
     if validation == 2222 or validation == 3222 {
         # validation==3222 means that the value is a raw int
         local encoded = validation == 2222;
@@ -69,6 +71,14 @@ proc _sa_decode_resp resp {
 }
 
 on "_sa_request_missing_parts" {
-    error "not implemented 💀";
-    breakpoint;
+    if _sa_receiving_send_message {
+        # re-requesting missing parts does not work for these messages yet and will be added in a future update
+        error "not implemented 💀";
+        breakpoint;
+    } else {
+        until "" not in sa_parsed_responses {
+            TO_HOST = (("" in sa_parsed_responses) - 1) & sa_request_id & 9;
+            wait 0.1;
+        }
+    }
 }
