@@ -1,6 +1,9 @@
 costumes "blank.svg";
 
+%define SA_DISABLE_RECEIVER
+
 %include inflator/assert
+%include inflator/lazy
 %include inflator/char
 %include inflator/string
 %include inflator/time
@@ -108,10 +111,8 @@ list testers = ["None",
     "'"
 ];
 
-onflag {main;}
-nowarp proc main {
-    sa_timeout_after = 99999;
-    if false {send_request "ping";}
+onbool(true) {
+    sa_message_receiver;
 }
 
 onkey "space" {

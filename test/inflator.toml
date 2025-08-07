@@ -4,4 +4,5 @@ username = "FAReTek1"
 
 [dependencies]
 assert = "https://github.com/FAReTek1/assert"
+lazy = "https://github.com/FAReTek1/lazy"
 cloud_requests = ".."

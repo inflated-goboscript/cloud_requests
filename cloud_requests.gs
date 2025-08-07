@@ -13,10 +13,6 @@ var sa_request = "";
 var sa_timeout_after = 10;
 var _sa_receiving_send_message = false;
 
-onflag {
-    SA_CLOUD_INIT;
-}
-
 enum SAStatuses {
     loading = "LOADING",
     done = "DONE",
@@ -33,14 +29,19 @@ proc SA_CLOUD_INIT {
         log "Thanks for using cloud requests!";
     } else {
         error "SA CLOUD REQUESTS: Cloud vars are not inited: add `%include inflator/cloud_requests/stage` to `stage.gs`";
-        say "see console";
         breakpoint;
     }
 }
 
+ontimer > 0 {
+    SA_CLOUD_INIT;
+}
+
+%if not SA_DISABLE_RECEIVER
 onflag {
     sa_message_receiver;
 }
+%endif
 
 nowarp proc sa_message_receiver {
     sa_init;
