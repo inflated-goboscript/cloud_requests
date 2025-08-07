@@ -61,7 +61,8 @@ proc sa_init {
     add "=" & FROM_HOST_8 to sa_old_cloud_values;
     add "=" & FROM_HOST_9 to sa_old_cloud_values;
     
-    delete sa_parsed_responses;
+    delete sa_on_send_parsed_responses;
+    add "" to sa_on_send_parsed_responses;
 }
 
 %include inflator/cloud_requests/src/check

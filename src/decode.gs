@@ -59,9 +59,7 @@ proc _sa_decode_resp resp {
     if _sa_receiving_send_message {
         if not ("re-request" in sa_on_send_parsed_responses or "" in sa_on_send_parsed_responses) {
             sa_request_status = SAStatuses.sent_from_server;
-            # read and decode server message
-            error "not implemented 💀";
-            breakpoint;
+            _sa_read_and_decode_server_message;
         }
     } else {
         if not ("re-request" in sa_parsed_responses or "" in sa_parsed_responses) {
@@ -81,4 +79,25 @@ on "_sa_request_missing_parts" {
             wait 0.1;
         }
     }
+}
+
+proc _sa_read_and_decode_server_message {
+    local out = "";
+    local i = 1;
+    repeat length sa_on_send_parsed_responses {
+        local j = 1;
+        if "." in sa_on_send_parsed_responses[i] {
+            until sa_on_send_parsed_responses[i][j] == "." {
+                out &= sa_on_send_parsed_responses[i][j];
+                j++;
+            }
+        }
+        i++;
+    }
+
+    _sa_decode out;
+    delete sa_on_send_parsed_responses;
+    add "" to sa_on_send_parsed_responses;
+
+    broadcast "sa_on_server_message";
 }
