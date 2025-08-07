@@ -8,7 +8,7 @@ proc _sa_decode ret {
 
     repeat length $ret / 2 {
         local part = $ret[i] & $ret[i + 1];
-        if part == 88 {
+        if part == 89 {
             add content to sa_response;
             content = "";
         } else {
