@@ -1,9 +1,9 @@
 # inflator.toml syntax documentation: https://github.com/faretek1/inflator#inflator
 name = "cloud_requests"
 version = "v0.0.0"
-username = "FAReTek1"
+username = "inflated-goboscript"
 
 [dependencies]
-char = "https://github.com/FAReTek1/char"
-string = "https://github.com/FAReTek1/string"
-time = "https://github.com/FAReTek1/time"
+char = "https://github.com/inflated-goboscript/char"
+string = "https://github.com/inflated-goboscript/string"
+time = "https://github.com/inflated-goboscript/time"
