@@ -47,15 +47,15 @@ nowarp proc send_request content {
     }
 
     # Receive a response
-    local start_time = SECONDS_SINCE_2000();
+    local start_time = TIME();
 
     delete sa_parsed_responses;
     add "" to sa_parsed_responses;
     
-    until sa_request_status == SAStatuses.done or SECONDS_SINCE_2000() - start_time > sa_timeout_after {
+    until sa_request_status == SAStatuses.done or TIME() - start_time > sa_timeout_after {
         sa_check;
     }
-    if SECONDS_SINCE_2000() - start_time > sa_timeout_after {
+    if TIME() - start_time > sa_timeout_after {
         sa_request_status = SAStatuses.timeout;
     } else {
         broadcast "sa_on_server_response";

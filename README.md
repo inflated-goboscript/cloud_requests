@@ -3,7 +3,7 @@
 > scratchattach cloud requests in goboscript
 
 This is a implementation of the scratchattach cloud request framework as of August 2025 which is built for [goboscript](https://github.com/aspizu/goboscript).
-It is designed to be used with [inflator](https://github.com/faretek1/inflator) and [scratchattach](https://github.com/timMcCool/scratchattach/)
+It is designed to be used with [inflator](https://github.com/inflated-goboscript/inflator) and [scratchattach](https://github.com/timMcCool/scratchattach/)
 
 There are 2 broadcasts that are called by the cloud request api.
 - `sa_on_server_response` when a server response to a request arrives
@@ -20,25 +20,22 @@ There is a variable and a list for accessing the data provided on a request or s
 
 ## Installation
 
-Make sure you have inflator installed
+Make sure you have inflator installed. It's available on the gtp.
 
-`inflate install https://github.com/FAReTek1/cloud_requests`
+`inflate install cloud_requests`
 
 add cloud_requests to your `inflator.toml` config:
 ```toml
 [dependencies]
 # ...
-cloud_requests = "https://github.com/FAReTek1/cloud_requests"
+cloud_requests = "cloud_requests"
 ```
-
-> [!IMPORTANT]
-> You will need to %include the inflate/time, inflate/char, and inflate/string modules before %including inflate/cloud_requests. This is due to a strange goboscript bug. If conditional compilation is added to these libraries, this might be resolved
 
 ## Development
 
 use `inflate install -e .`:
 
-1. clone the respository: `git clone https://github.com/FAReTek1/cloud_requests`
+1. clone the respository: `git clone https://github.com/inflated-goboscript/cloud_requests`
 2. `cd cloud_requests`
 3. `inflate install -e .`
 4. `cd test`

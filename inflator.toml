@@ -4,6 +4,6 @@ version = "v0.0.0"
 username = "inflated-goboscript"
 
 [dependencies]
-char = "https://github.com/inflated-goboscript/char"
-string = "https://github.com/inflated-goboscript/string"
-time = "https://github.com/inflated-goboscript/time"
+char = "char"
+string = "string"
+time = "time"

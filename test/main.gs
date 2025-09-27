@@ -4,10 +4,8 @@ costumes "blank.svg";
 
 %include inflator/assert
 %include inflator/lazy
-%include inflator/char
-%include inflator/string
-%include inflator/time
 %include inflator/cloud_requests
+%include inflator/string
 
 list testers = ["None",
     "None",

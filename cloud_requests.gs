@@ -1,5 +1,10 @@
 # This is certainly slower than the original sb3 implementation, but it should be more readable and uses libraries.
 
+# submodule includes are at the bottom
+%include inflator/time
+%include inflator/char
+%include inflator/string
+
 # we need to add '=' to the start of each old cloud val to force comparison by string rather than by float, which has inaccuracies in the decimal portion
 list sa_old_cloud_values;
 list sa_parsed_responses;
